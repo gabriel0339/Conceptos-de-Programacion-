@@ -1,0 +1,219 @@
+﻿
+
+
+using System;
+
+
+
+
+class Program
+{
+    
+
+    static string[] nombres = new string[10];
+    static string[] dnis = new string[10];
+    static string[] correos = new string[10];
+    static string[] nombresMascotas = new string[10];
+    static string[] tiposMascotas = new string[10];
+    static string[] razasMascotas = new string[10];
+    static string[] turnos = new string[10];
+
+    static int cantidadClientes = 0;
+
+    static void Main()
+    {
+        int opcion;
+
+        do
+        {
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine(" Menú Principal ");
+            Console.WriteLine("1. Cargar datos de un cliente");
+            Console.WriteLine("2. Buscar un cliente");
+            Console.WriteLine("3. Buscar una mascota");
+            Console.WriteLine("4. Ver la cantidad de mascotas según la raza");
+            Console.WriteLine("5. Asignar un turno");
+            Console.WriteLine("6. Salir del programa");
+            Console.WriteLine("Seleccione una opción: ");
+            Console.WriteLine("---------------------------------------------------");
+            
+            
+            opcion = Convert.ToInt32(Console.ReadLine());
+
+            switch (opcion)
+            {
+                case 1:
+            		
+                    CargarCliente();
+                    
+                    
+                    break;
+                case 2:
+                    
+                    BuscarCliente();
+                    
+                    break;
+                case 3:
+                                     
+                    BuscarMascota();
+                    
+                    
+                    break;
+                case 4:
+                    VerCantidadPorRaza();
+                    
+                    
+                    break;
+                case 5:
+                    
+                    AsignarTurno();
+                    
+                    
+                    break;
+                case 6:
+                    
+                    Console.WriteLine("Gracias por usar la aplicación.");
+                    break;
+                    
+                    
+                default:
+                    Console.WriteLine("Opción inválida.");
+                    break;
+            }
+
+        } while (opcion != 6);
+    }
+
+    static void CargarCliente()
+    {
+        Console.Write("Nombre y Apellido: ");
+        nombres[cantidadClientes] = Console.ReadLine();
+
+        Console.Write("DNI: ");
+        dnis[cantidadClientes] = Console.ReadLine();
+
+        Console.Write("Correo electrónico: ");
+        correos[cantidadClientes] = Console.ReadLine();
+
+        Console.Write("Nombre de la mascota: ");
+        nombresMascotas[cantidadClientes] = Console.ReadLine();
+
+        Console.Write("Tipo de mascota: ");
+        tiposMascotas[cantidadClientes] = Console.ReadLine();
+
+        Console.Write("Raza de la mascota: ");
+        razasMascotas[cantidadClientes] = Console.ReadLine();
+
+        turnos[cantidadClientes] = ("Sin asignar");
+        cantidadClientes++;
+
+        Console.WriteLine("Cliente ingresado exitosamente");
+    }
+
+    static void BuscarCliente()
+    {
+        Console.Write("Ingrese el DNI del cliente: ");
+        string dniBuscado = Console.ReadLine();
+
+
+        for (int i = 0; i < cantidadClientes; i++)
+        {
+            if (dnis[i] == dniBuscado)
+            {
+                Console.WriteLine("Cliente existente");
+  
+                break;
+            }
+                    else{
+        
+        	Console.WriteLine("Cliente no encontrado.");
+           }
+        }
+
+
+    }
+
+    static void BuscarMascota()
+    {
+        Console.Write("Ingrese el nombre de la mascota: ");
+        string nombreMascotas = Console.ReadLine();
+
+        for (int i = 0; i < cantidadClientes ; i++)
+        {
+        	if( nombresMascotas[i] == nombreMascotas)
+        	{
+                Console.WriteLine("Mascota encontrada con exito.");
+   
+                break;
+            }
+        	
+        	else{
+        		Console.WriteLine("Mascota no encontrada.");
+        	}
+        }
+
+    }
+    
+    
+    static void VerCantidadPorRaza()
+    {
+        string[] razasContadas = new string[10];
+        int[] conteos = new int[10];
+        int cantidadRazas = 0;
+
+        for (int i = 0; i < cantidadClientes; i++)
+        {
+            bool encontrada = false;
+            for (int j = 0; j < cantidadRazas; j++)
+            {
+                if (razasContadas[j] == razasMascotas[i])
+                {
+                    conteos[j]++;
+                    encontrada = true;
+                    break;
+                }
+            }
+
+            if (!encontrada)
+            {
+                razasContadas[cantidadRazas] = razasMascotas[i];
+                conteos[cantidadRazas] = 1;
+                cantidadRazas++;
+            }
+        }
+
+        Console.WriteLine("\nCantidad de mascotas por raza:");
+        for (int i = 0; i < cantidadRazas; i++)
+        {
+            Console.WriteLine("Raza: "+ razasContadas[i]+ "- Cantidad: " + conteos[i]);
+        }
+    }    
+    
+    
+
+    static void AsignarTurno()
+    {
+        Console.Write("Ingrese nombre de la mascota: ");
+        string nombreMascota = Console.ReadLine();
+    
+        for (int i = 0; i < cantidadClientes; i++)
+        {
+            if (nombresMascotas[i] == nombreMascota)
+            {
+                Console.Write("Ingrese fecha del turno (dd/mm/yyyy): ");
+                string fecha = Console.ReadLine();
+                turnos[i] = fecha;
+                Console.WriteLine("Turno asignado ");
+                break;
+            }
+            
+            else{
+            	 Console.WriteLine("Mascota no encontrada.");
+            
+            }
+            
+            
+        }
+
+    }
+}
